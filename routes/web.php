@@ -42,6 +42,7 @@ Route::resource('/solicitudes','SolicitudController');
 Route::get('/home','SolicitudController@dashboard');
 
 Route::resource('inversiones','InversionController');
+Route::post('/inversiones/pagination/{pk_solicitud}', 'InversionController@pagination')->name('pagination');
 
 Route::post('/aceptar/{pk}','SolicitudController@confirmacion');
 

@@ -10,23 +10,9 @@ use App\Solicitud;
 class InversionController extends Controller {
 
     public function index(){
-        $inversiones = Inversion::where('inversion.fk_usuario',session('datos')['pk_usuario'])->join("solicitud","inversion.fk_solicitud","=","solicitud.pk_solicitud")->get();
-        foreach ($inversiones as $i) {
-            if($i->tiempo_recaudacion > date('Y-m-d')){
-                if ($i->monto_requerido==$i->monto_juntado) {
-                    $i->estado2="Monto requerido recolectado";
-                }else{
-                    $i->estado2="Recaudando";
-                }
-            }else{
-                if($i->estado){
-                    $i->estado2="Aprovado";    
-                }else{
-                    $i->estado2="Rechazado";
-                }
-            }
-        }
-        return view("inversiones.inversiones",compact('inversiones'));
+        $inversiones = Inversion::where('inversion.fk_usuario',session('datos')['pk_usuario'])->groupBy('inversion.fk_solicitud')->get();
+        // dd($inversiones);
+        return view("inversiones.inversiones",['inversiones' => $inversiones]);
     }
 
     public function create(Request $request){
@@ -61,6 +47,26 @@ class InversionController extends Controller {
         }
         
         
+    }
+
+    public function pagination(request $request, $pk_solicitud)
+    {
+        if ($request->ajax()) {
+            
+            if(Solicitud::find($pk_solicitud)->fk_usuario != session('datos')['pk_usuario']){
+                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'usuario.*', 'solicitud.*')->where('inversion.fk_usuario', session('datos')['pk_usuario'])->orderBy('monto', 'desc')->get();
+                $num = count($solicitud);
+            } else {
+                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'usuario.*', 'solicitud.*')->orderBy('monto', 'desc')->get();
+                $num = count($solicitud);
+            }
+                
+            return response()->json([
+                'pagina' => $request->pagina,
+                'count' => $num,
+                'inversiones' => $solicitud->slice($request->pagina * 10)->take(10),
+            ]);
+        }
     }
 
     public function show($id){

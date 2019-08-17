@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ucwords(substr($solicitud->titulo, 0, 20))}}</h5>
                                     <div>${{number_format($solicitud->monto_requerido, 2)}}</div>
-                                    <div data-toggle="tooltip" data-placement="right" title="Efectivo Anual">{{$solicitud->interes}}% EA</div>
+                                    <div data-toggle="tooltip" data-placement="right" title="Efectivo Anual">{{$solicitud->interes}}% EM</div>
                                     <div>{{ucfirst($solicitud->usuario->get_full_name())}}</div>
                                 </div>
                                 <div class="card-img-overlay" style="left: -15px;top: -15px;">
@@ -44,15 +44,17 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="item" onclick="location.href=''" style="cursor: pointer">
-                        <div class="card">
-                            <img src="{{asset('/storage/crowd.jpg')}}" class="card-img-top" style="object-fit: cover;height:200px">
-                            <div class="card-body">
-                                <h5 class="card-title">¡Explora!</h5>
-                                <div>Encuentra mas en CrodwInvestmen.</div>
+                    @if(count($categoria) > 10)
+                        <div class="item" onclick="location.href=''" style="cursor: pointer">
+                            <div class="card">
+                                <img src="{{asset('/storage/crowd.jpg')}}" class="card-img-top" style="object-fit: cover;height:200px">
+                                <div class="card-body">
+                                    <h5 class="card-title">¡Explora!</h5>
+                                    <div>Encuentra mas en CrodwInvestmen.</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

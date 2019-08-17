@@ -18,7 +18,7 @@ class Solicitud extends Model
         return $this->hasMany('App\Multimedia', 'fk_solicitud', 'pk_solicitud');
     }
 
-    public function inversioness(){
+    public function inversiones(){
         return $this->hasMany('App\Inversion', 'fk_solicitud', 'pk_solicitud');
     }
 }
