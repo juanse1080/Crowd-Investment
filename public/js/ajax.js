@@ -25,8 +25,8 @@ function modalConstruct(titulo, mensaje, botones){
     '</div>';
     return modal;
 }
-function newModal(titulo,mensaje,botones){
-    $('#br').after(modalConstruct(titulo,mensaje,botones));
+function newModal(elemento='#parentModal', titulo,mensaje,botones){
+    $(elemento).html(modalConstruct(titulo,mensaje,botones));
     $('#exampleModalCenter').modal('show');
 }
 function modalConfirm (callback, titulo, mensaje, botones){
@@ -40,6 +40,7 @@ function modalConfirm (callback, titulo, mensaje, botones){
         $("#exampleModalCenter").modal('hide');
     });
 }
+
 function deleteRegistro(ruta, id, hidden){
     $.ajax({
         type: 'POST',
@@ -131,6 +132,46 @@ let randomNumber = () => {
     ];
     return colors[parseInt(Math.random() * (colors.length - 0) + 0)];
 }
+
+let loadNotifications = () => {
+    let panel = $('#comments');
+    $.ajax({
+        type: "POST",
+        url: "/notificaciones/truncate/",
+        data: { _token: $('#csrf_token').attr('content')},
+        success: function (data) {
+            console.log(data);
+            if(data.count > 0){
+                html = '';
+                $.each( data.notifications, function(key, value) {
+                    html += ''+
+                    '<a class="dropdown-item d-flex align-items-center" href="'+value.url+'">'+
+                        '<div class="">'+
+                            '<div class="font-weight-bold">'+value.titulo+'</div>'+
+                            '<div class="">'+
+                                value.descripcion+
+                            '.</div>'+
+                            '<div class="small text-gray-500">'+value.created_at.split(' ')[0]+'</div>'+
+                        '</div>'+
+                    '</a>';
+                });
+                panel.html(html);
+                $('#items').html(data.count > 5 ? '5+' : data.count)
+            }
+        },
+        error: function (result) {
+            alert("Data not found");
+        }
+    });
+}
+
+$(document).ready(function(){
+    $.ajaxSetup({'cache':false});
+    loadNotifications();
+    setInterval(loadNotifications, 15000);
+});
+
+
 
 // function myFunction(){
 //     var input, filter, table, tr, td, i;

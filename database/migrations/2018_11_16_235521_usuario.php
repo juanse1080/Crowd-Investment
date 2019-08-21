@@ -49,14 +49,14 @@ class Usuario extends Migration {
             $table->increments('pk_inversion');
             $table->unsignedInteger('fk_solicitud');
             $table->unsignedInteger('fk_usuario');
-            $table->float('monto');
+            $table->integer('monto');
             $table->timestamps();
         });
 
         Schema::create('notificacion', function (Blueprint $table) {
             $table->increments('pk_notificacion');
             $table->unsignedInteger('fk_usuario');
-            $table->boolean('estado')->default(false);
+            $table->boolean('estado')->default(true);
             $table->string('titulo');
             $table->text('descripcion');
             $table->string('url');

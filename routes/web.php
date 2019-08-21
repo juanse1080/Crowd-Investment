@@ -31,6 +31,8 @@ Route::get('contacto/', function () {
 /*   RUTAS USUARIOS */
 Route::resource('/usuarios','UsuarioController');
 Route::resource('/notificaciones', 'NotificacionController');
+Route::post('/notificaciones/truncate', 'NotificacionController@truncate')->name('load');
+
 Route::get('/usuarios/solicitante/edit', 'UsuarioController@editSolicitante');
 Route::post('/usuarios/solicitante/', 'UsuarioController@updateSolicitante');
 Route::get('/perfil', function () {
@@ -39,6 +41,7 @@ Route::get('/perfil', function () {
 
 //   RUTAS SOLICITUDES
 Route::resource('/solicitudes','SolicitudController');
+Route::post('/solicitudes/estado/{pk_solicitud}','SolicitudController@updateEstado')->name('estado');
 Route::get('/home','SolicitudController@dashboard');
 
 Route::resource('inversiones','InversionController');

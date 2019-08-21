@@ -8,6 +8,7 @@ use App\Http\Controllers\SupraController;
 use App\Http\Controllers\UsuarioController;
 use App\Solicitud;
 use App\Multimedia;
+use App\Notificacion;
 
 class SolicitudController extends Controller
 {
@@ -68,6 +69,25 @@ class SolicitudController extends Controller
                     'mensaje' => 'Se registro con exito',
                 ]);
             }
+        }
+    }
+
+    public function updateEstado(request $request, $pk_solicitud){
+        if ($request->ajax()) {
+            $solicitud = Solicitud::find($pk_solicitud);
+            $solicitud -> estado = !boolval($request->estado);
+            $solicitud -> save();
+            if($solicitud -> estado){
+                Notificacion::create([
+                    'fk_usuario' => $solicitud -> fk_usuario,
+                    'titulo' => '¡Tu solicitud #'.$solicitud -> pk_solicitud.' ya es visible!',
+                    'descripcion' => 'Tu solicitud "'.$solicitud -> titulo.'" actualmente se encuentra activa, en este momento otros usuarios podran apoyar tu idea',
+                    'url' => route('solicitudes.show', $solicitud -> pk_solicitud)
+                ]);
+            }
+            return response()->json([
+                'estado' => $solicitud -> estado,
+            ]);
         }
     }
 

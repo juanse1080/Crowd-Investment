@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notificacion;
 
-class NotificacionController extends Controller {
+class NotificacionController extends Controller
+{
 
-    public function conteoNotificacion(Request $request){
-        if($request->ajax()){
-            $notificaciones = Notificacion::where('notificacion.fk_usuario',session('datos')['pk_usuario'])->where('estado',false)->get();
+    public function conteoNotificacion(Request $request)
+    {
+        if ($request->ajax()) {
+            $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->where('estado', false)->get();
             return response()->json([
                 'numero' => count($notificaciones),
             ]);
@@ -17,8 +19,18 @@ class NotificacionController extends Controller {
     }
     public function index()
     {
-        $notificaciones = Notificacion::where('notificacion.fk_usuario',session('datos')['pk_usuario'])->get();
+        $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->get();
         return view('notificaciones.verNotificacion', ['notificaciones' => $notificaciones, 'num' => count($notificaciones)]);
+    }
+
+    public function truncate(Request $request){
+        if($request->ajax()){
+            $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->orderBy('created_at', 'desc')->get()->take(5);
+            return response()->json([
+                'count' => count(Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->get()),
+                'notifications' => $notificaciones
+            ]);
+        }
     }
 
     /**
@@ -82,8 +94,9 @@ class NotificacionController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, request $request){
-        if($request->ajax()){
+    public function destroy($id, request $request)
+    {
+        if ($request->ajax()) {
             $empleado = Notificacion::findOrFail($id);
             $empleado->update([
                 'estado' => true,

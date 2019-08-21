@@ -69,8 +69,8 @@
                         <div class="row justify-content-between mr-1 ml-3">
                             @if($solicitud->monto_juntado < $solicitud->monto_requerido)
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" {{$solicitud->estado ? 'checked' : ''}} class="custom-control-input" id="switch{{$solicitud->pk_solicitud}}">
-                                    <label class="custom-control-label" for="switch{{$solicitud->pk_solicitud}}">{{$solicitud->estado ? 'Activo' : 'Inactivo'}}</label>
+                                    <input type="checkbox" label-change="#label{{$solicitud->pk_solicitud}}" {{$solicitud->estado ? 'checked' : ''}} class="estado custom-control-input" id="switch{{$solicitud->pk_solicitud}}" url="{{route('estado', $solicitud->pk_solicitud)}}" value="{{$solicitud->estado ? 1 : 0}}">
+                                    <label id="label{{$solicitud->pk_solicitud}}" class="custom-control-label" for="switch{{$solicitud->pk_solicitud}}">{{$solicitud->estado ? 'Activo' : 'Inactivo'}}</label>
                                 </div>
                             @else
                                 <label class="text-success mb-0">Completado</label>
@@ -113,6 +113,25 @@
             $('.clos').click(function () {
                 var respuesta = $(this).attr('respuesta');
                 update('aceptar', id, respuesta, h);
+            });
+        });
+
+        $('.estado').change(function(){
+            let estado = $(this).val();
+            let url = $(this).attr('url');
+            let label = $(this).attr('label-change');
+            let element = $(this);
+            $.ajax({
+                type: "POST",
+                url,
+                data: { _token: $('#csrf_token').attr('content'), estado },
+                success: function (result) {
+                    $(label).html(result.estado ? 'Activo' : 'Inactivo');
+                    element.val(result.estado ? '1' : '0')
+                },
+                error: function (result) {
+                    alert("Data not found");
+                }
             });
         });
     });
