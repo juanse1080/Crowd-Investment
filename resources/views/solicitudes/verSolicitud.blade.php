@@ -85,7 +85,8 @@
             <div class="mb-0"><i class="fas fa-undo-alt"></i> {{$solicitud->interes}}% interes EM</div>
             <div class="mb-3"><i class="fas fa-comments-dollar"></i> devolución en {{$solicitud->interes}} meses</div>
 
-            @if($solicitud->fk_usuario != session('datos')['pk_usuario'] && ($solicitud->monto_requerido - $solicitud->monto_juntado) != 0 )
+            @if($solicitud->fk_usuario != session('datos')['pk_usuario'] && ($solicitud->monto_requerido -
+            $solicitud->monto_juntado) != 0 )
             <label for="customRange3" class="row justify-content-between ml-1 mr-1">
                 <span>$0</span>
                 <span id="actual" class="text-primary">$0</span>
@@ -125,7 +126,7 @@
                             ${{number_format($inversion->monto)}}
                         </h4>
                         <span class="font-italic" style="font-size: small;">
-                            {{explode(' ', $inversion->solicitud->created_at)[0]}}
+                            {{date("M j", strtotime($inversion->created_at))}}
                         </span>
                     </div>
                     <!-- <h4>${{number_format($inversion->monto_requerido)}}</h4> -->
@@ -170,7 +171,7 @@
                             ${{number_format($inversion->monto)}}
                         </h4>
                         <span class="font-italic" style="font-size: small;">
-                            {{explode(' ', $inversion->solicitud->created_at)[0]}}
+                            {{date("M j", strtotime($inversion->created_at))}}
                         </span>
                     </div>
                     <!-- <h4>${{number_format($inversion->monto_requerido)}}</h4> -->
@@ -391,12 +392,15 @@
                     '</thead>' +
                     '<tbody>';
                 for (const element in result.inversiones) {
+                    temp = result.inversiones[element].created_at.split(' ')[0].split('-');
+                    // temp[2] = parseInt(temp[2]) + 1;
+                    created = new Date(temp[0] + '-' + temp[1] + '-' + temp[2]).toString().split(' ');
                     html += '' +
                         '<tr>' +
-                        '<td>' + result.inversiones[element].nombre + ' ' + result.inversiones[element].apellido + '</td>' +
+                        '<td><a href="'+result.urls[element]+'">' + result.inversiones[element].nombre + ' ' + result.inversiones[element].apellido + '</a></td>' +
                         '<td>$' + new Intl.NumberFormat("co-ES").format(result.inversiones[element].monto).replace(/\./g, ',') + '</td>' +
                         '<td>' + new Intl.NumberFormat("co-ES").format(result.inversiones[element].monto * 100 / result.inversiones[element].monto_requerido).replace(/,/g, '.') + '%</td>' +
-                        '<td>' + result.inversiones[element].created_at.split(' ')[0] + '</td>' +
+                        '<td>' + created[1] + " " + created[2] + '</td>' +
                         '</tr>';
                 }
                 html += '' +
@@ -436,7 +440,7 @@
         let monto = $('#monto').val();
         let tarjeta = $('#tarjeta').val();
         let fk_solicitud = "{{$solicitud->pk_solicitud}}";
-        if(invalid([$('#monto'), $('#tarjeta'), $('#nombre'), $('#cedula'), $('#fecha'), $('#fecha2'), $('#codigo')])){
+        if (invalid([$('#monto'), $('#tarjeta'), $('#nombre'), $('#cedula'), $('#fecha'), $('#fecha2'), $('#codigo')])) {
             $.ajax({
                 type: "POST",
                 url: "{{route('inversiones.store')}}",
@@ -454,7 +458,7 @@
 
     invalid = (list) => {
         let bandera = true;
-        list.forEach(function(element) {
+        list.forEach(function (element) {
             element.removeClass("is-invalid");
             element.addClass(element.val() == "" ? "is-invalid" : "");
             bandera = element.val() == "" ? false : true;

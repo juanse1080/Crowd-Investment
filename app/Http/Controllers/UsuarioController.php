@@ -9,6 +9,8 @@ use App\Usuario;
 use App\Http\Requests\UsuarioStore;
 use App\Http\Requests\UsuarioSolicitanteEdit;
 
+use App\Http\Controllers\LoginController;
+
 class UsuarioController extends Controller
 {
     /**
@@ -37,13 +39,14 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UsuarioStore $request)
+    public function store(Request $request)
     {
-        $usuario = (new Usuario)->fill($request->except("password2"));
+        $usuario = (new Usuario)->fill($request->all());
         $usuario->password = Hash::make($request->password);
         // dd($usuario);
         if($usuario->save()){
-            return redirect("/login");
+            $login = new LoginController();
+            return $login->auth(["correo" => $request->correo, "password" => $request->password], '/home');
         }else{
             return back()->withInput()->with('false', 'Algo no salio bien, intente nuevamente');
         }
@@ -57,7 +60,7 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('inicio.perfil');
     }
 
     /**

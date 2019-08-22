@@ -28,12 +28,11 @@ class Usuario extends Migration {
             $table->string('apellido')->nullable();
             $table->string('password');
             $table->string('correo');
-            $table->integer('cedula')->unique();
+            $table->integer('cedula')->unique()->nullable();
             $table->date('fecha_nacimiento');
             $table->string('nivel')->nullable();
             $table->integer('pasivos')->nullable();
             $table->integer('activos')->nullable();
-            $table->boolean('empresa')->default(false);
             $table->timestamps();
         });
 

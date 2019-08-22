@@ -26,10 +26,10 @@
                 <ul class="list-group list-group-flush">
                   @foreach($inversion->solicitud->inversiones()->where('inversion.fk_usuario', session('datos')['pk_usuario'])->get() as $inv)
                   <li class="list-group-item" style="border-top: 1px solid rgba(0,0,0,.125) !important;">
-                    <div class="row justify-content-between mr-1 ml-3">
+                    <div class="row justify-content-between mr-1 ml-1">
                       <span data-toggle="tooltip" data-placement="top"
                       title="${{number_format($inv->monto*pow(($inv->solicitud->interes/100) + 1, $inv->solicitud->tiempo_devolucion))}}" class="font-italic" style="font-size: small;">${{number_format($inv->monto)}}</span>
-                      <span class="font-italic" style="font-size: small;">{{explode(' ', $inv->created_at)[0]}}</span>
+                      <span class="font-italic" style="font-size: small;">{{date("M j", strtotime($inv->created_at))}}</span>
                     </div>
                   </li>
                   @endforeach

@@ -60,7 +60,7 @@
                                 </a>
                             </h5>
                             <span class="font-italic" style="font-size: small;">
-                                {{explode(' ', $solicitud->created_at)[0]}}
+                                {{date("M j", strtotime($solicitud->created_at))}}
                             </span>
                         </div>
                         <span class="ml-3">

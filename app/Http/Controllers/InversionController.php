@@ -66,12 +66,18 @@ class InversionController extends Controller
     public function pagination(request $request, $pk_solicitud)
     {
         if ($request->ajax()) {
-
+            $urls = [];
             if (Solicitud::find($pk_solicitud)->fk_usuario != session('datos')['pk_usuario']) {
-                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'usuario.*', 'solicitud.*')->where('inversion.fk_usuario', session('datos')['pk_usuario'])->orderBy('monto', 'desc')->get();
+                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'inversion.fk_usuario AS usuario', 'usuario.*', 'solicitud.monto_requerido')->where('inversion.fk_usuario', session('datos')['pk_usuario'])->orderBy('monto', 'desc')->get();
+                foreach ($solicitud as $usuario) {
+                    array_push($urls, route('usuarios.show', $usuario->usuario));
+                }
                 $num = count($solicitud);
             } else {
-                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'usuario.*', 'solicitud.*')->orderBy('monto', 'desc')->get();
+                $solicitud = Solicitud::find($pk_solicitud)->inversiones()->join('solicitud', 'solicitud.pk_solicitud', 'inversion.fk_solicitud')->join('usuario', 'inversion.fk_usuario', 'usuario.pk_usuario')->select('inversion.*', 'inversion.fk_usuario AS usuario', 'usuario.*', 'solicitud.monto_requerido')->orderBy('monto', 'desc')->get();
+                foreach ($solicitud as $usuario) {
+                    array_push($urls, route('usuarios.show', $usuario->usuario));
+                }
                 $num = count($solicitud);
             }
 
@@ -79,6 +85,7 @@ class InversionController extends Controller
                 'pagina' => $request->pagina,
                 'count' => $num,
                 'inversiones' => $solicitud->slice($request->pagina * 10)->take(10),
+                'urls' => $urls,
             ]);
         }
     }
