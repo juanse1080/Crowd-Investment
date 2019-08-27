@@ -19,6 +19,7 @@ class UsuarioSeeder extends Seeder
         'apellido' => 'Trujillo',
         'password' => Hash::make('clave'),
         'correo' => 'p.trujillop@gmail.com',
+        'color' => '#ffc107/#ffffff',
         'cedula' => 1,
         'fecha_nacimiento'=>'1980-11-15'
       ]); 
@@ -27,6 +28,7 @@ class UsuarioSeeder extends Seeder
         'apellido' => 'Caballero',
         'password' => Hash::make('clave'),
         'correo' => 'edward.caballero.p@gmail.com',
+        'color' => '#ffc107/#ffffff',
         'cedula' => 2,
         'fecha_nacimiento'=>'1997-11-15'
       ]); 

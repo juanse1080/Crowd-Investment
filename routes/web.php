@@ -32,6 +32,7 @@ Route::get('contacto/', function () {
 Route::resource('/usuarios','UsuarioController');
 Route::resource('/notificaciones', 'NotificacionController');
 Route::post('/notificaciones/truncate', 'NotificacionController@truncate')->name('load');
+Route::post('/notificaciones/estado', 'NotificacionController@estado');
 
 Route::get('/usuarios/solicitante/edit', 'UsuarioController@editSolicitante');
 Route::post('/usuarios/solicitante/', 'UsuarioController@updateSolicitante');

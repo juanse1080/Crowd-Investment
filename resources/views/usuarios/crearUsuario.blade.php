@@ -27,6 +27,7 @@
                             </div>
                             <div class="card-body">
                                 <form action="{{route('usuarios.store')}}" method="post">
+                                    <input type="hidden" id="color" name="color">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">

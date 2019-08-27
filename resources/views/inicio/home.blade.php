@@ -38,7 +38,7 @@
                                 <div class="card-img-overlay" style="left: -15px;top: -15px;">
                                     <span class="badge badge-pill badge-light">
                                         <i class="fas fa-clock"></i>
-                                        {{explode(' ', $solicitud->created_at)[0]}}
+                                        {{date("M j", strtotime($solicitud->created_at))}}
                                     </span>
                                 </div>
                             </div>

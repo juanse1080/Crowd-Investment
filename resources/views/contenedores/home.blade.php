@@ -28,6 +28,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" integrity="sha256-c3RzsUWg+y2XljunEQS0LqWdQ04X1D3j22fd/8JCAKw=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
@@ -209,15 +210,18 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{session('datos')['nombre'] . ' ' .session('datos')['apellido']}}</span>
-                        <div id="img-profile" class="ml-2 rounded-circle row justify-content-center align-items-center" data-name="{{session('datos')['nombre'] . ' ' .session('datos')['apellido']}}" style="width: 50px;height: 50px;">
-                            <span class="font-weight-bolder" style="font-size: 18px;"></span>
-                        </div>
-                        <!-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{session('datos')['nombre']}}</span>
+                        @if(Auth::user()->foto == '/storage/usuario.svg')
+                            <div id="miniatura" background="{{explode('/' , session('datos')['color'])[0]}}" class="img-profile ml-2 rounded-circle row justify-content-center align-items-center" data-name="{{session('datos')['nombre'] . ' ' .session('datos')['apellido']}}" style="width: 50px;height: 50px;">
+                                <span color="{{explode('/' , session('datos')['color'])[1]}}" class="font-weight-bolder" style="font-size: 18px;"></span>
+                            </div>
+                        @else
+                            <img class="img-profile rounded-circle" src="{{Auth::user()->foto}}">
+                        @endif
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/perfil') }}">
+                        <a class="dropdown-item" href="{{ route('usuarios.show', Auth::user()->pk_usuario) }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Perfil
                         </a>

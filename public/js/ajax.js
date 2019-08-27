@@ -72,11 +72,12 @@ function update(ruta, id, respuesta, h){
 }
 
 $(document).ready(function(){
-    console.log($('#img-profile').attr('data-name'));
-    values = initial($('#img-profile').attr('data-name'));
-    $('#img-profile').children().html(values[0]);
-    $('#img-profile').children().css({'color' : values[2]});
-    $('#img-profile').css({'background-color' : values[1]});
+    console.log($('.img-profile').attr('data-name'));
+    values = initial($('.img-profile').attr('data-name'));
+    $('.img-profile').children().html(values[0]);
+    $('#color').val(values[1]+'/'+values[2]);
+    $('.img-profile').children().css({'color' : $('.img-profile').children().attr('color')});
+    $('.img-profile').css({'background-color' : $('.img-profile').attr('background')});
     $('.close').click(function(){
         var id = $(this).attr('identificador');
         var hidden = $('#n'+id);
@@ -144,14 +145,17 @@ let loadNotifications = () => {
             if(data.count > 0){
                 html = '';
                 $.each( data.notifications, function(key, value) {
+                    temp = value.created_at.split(' ')[0].split('-');
+                    created = new Date(temp[0] + '-' + temp[1] + '-' + temp[2]).toString().split(' ');
+                    estado = value.estado ? 'style="color: #16181b;text-decoration: none;background-color: #f8f9fa;cursor:pointer"' : 'style="cursor:pointer"';
                     html += ''+
-                    '<a class="dropdown-item d-flex align-items-center" href="'+value.url+'">'+
+                    '<a class="dropdown-item d-flex align-items-center" onclick="notification('+value.pk_notificacion+',`'+value.url+'`)" '+estado+'>'+
                         '<div class="">'+
                             '<div class="font-weight-bold">'+value.titulo+'</div>'+
                             '<div class="">'+
                                 value.descripcion+
                             '.</div>'+
-                            '<div class="small text-gray-500">'+value.created_at.split(' ')[0]+'</div>'+
+                            '<div class="small text-gray-500">'+ created[1] + " " + created[2] +'</div>'+
                         '</div>'+
                     '</a>';
                 });
@@ -170,6 +174,21 @@ $(document).ready(function(){
     loadNotifications();
     setInterval(loadNotifications, 15000);
 });
+
+let notification = (pk, url) => {
+    $.ajax({
+        type: "POST",
+        url: "/notificaciones/estado/",
+        data: { _token: $('#csrf_token').attr('content'), pk_notificacion: pk},
+        success: function (data) {
+            console.log(data);
+            location.href = url;
+        },
+        error: function (result) {
+            alert("Data not found");
+        }
+    });
+}
 
 
 

@@ -23,13 +23,24 @@ class NotificacionController extends Controller
         return view('notificaciones.verNotificacion', ['notificaciones' => $notificaciones, 'num' => count($notificaciones)]);
     }
 
-    public function truncate(Request $request){
-        if($request->ajax()){
-            $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->orderBy('created_at', 'desc')->get()->take(5);
+    public function truncate(Request $request)
+    {
+        if ($request->ajax()) {
+            $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->orderBy('estado', 'desc')->orderBy('created_at', 'desc')->get()->take(5);
             return response()->json([
-                'count' => count(Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->get()),
+                'count' => count(Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->where('estado', true)->get()),
                 'notifications' => $notificaciones
             ]);
+        }
+    }
+
+    public function estado(Request $request)
+    {
+        if ($request->ajax()) {
+            $notificacion = Notificacion::find($request->pk_notificacion);
+            $notificacion->estado = false;
+            $notificacion->save();
+            return response()->json(true);
         }
     }
 

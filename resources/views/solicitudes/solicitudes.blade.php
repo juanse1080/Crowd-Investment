@@ -24,23 +24,6 @@
 
 <div class="container">
     <h4 class="mb-4">Mis solicitudes</h4>
-    <!-- <div class="row">
-        @csrf
-        {{-- filtro --}}
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fas fa-filter"></i>
-                    </span>
-                </div>
-                <input type="text" class="form-control form-control-sm" id="entradafilter" name="titulo"
-                    placeholder="Filtrar Resultados">
-            </div>
-        </div>
-        <a class="btn btn-success" href="{{url('/solicitudes/crear') }}" role="button">Nueva Solicitud</a>
-    </div> -->
     <div class="row">
         @foreach($solicitudes as $solicitud)
             <div class="col-md-6 col-sm-12 mb-3">
