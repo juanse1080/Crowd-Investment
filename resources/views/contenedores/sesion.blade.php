@@ -24,7 +24,8 @@
         <!-- <script type="text/javascript" src="{{ asset('js/ajax.js') }}"></script> -->
         <script>
             $('#datepicker').datepicker({
-                uiLibrary: 'bootstrap4'
+                uiLibrary: 'bootstrap4',
+                format: 'yyyy/mm/dd',
             });
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()

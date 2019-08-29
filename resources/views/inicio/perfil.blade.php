@@ -21,16 +21,26 @@
         -o-transform: scale(3);
         transform: scale(3);
     }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+    }
 </style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-8 mt-3 text-center">
-            <div class="">
-                <img src="{{$usuario->foto}}" alt="" class="card-img-top rounded-circle">
-            </div>
-            <h4>{{$usuario->get_full_name()}}</h4>
-        </div>
-        <div class="col-lg-8 mt-3">
+        <div class="col-12 mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
@@ -63,9 +73,10 @@
                                         <label class="font-weight-bold" for="">Cédula</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->cedula}}
+                                        <span>{{!is_null($usuario->cedula)  ? $usuario->cedula : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->cedula}}" campo="cedula" onclick="numb(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->cedula}}" campo="cedula"
+                                            onclick="numb(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -77,9 +88,10 @@
                                         <label class="font-weight-bold" for="">Nombre</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->nombre}}
+                                        <span>{{$usuario->nombre}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link text" val="{{$usuario->nombre}}" campo="nombre" onclick="text(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link text" val="{{$usuario->nombre}}" campo="nombre"
+                                            onclick="text(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -91,9 +103,10 @@
                                         <label class="font-weight-bold" for="">Apellido</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->apellido}}
+                                        <span>{{$usuario->apellido}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link text" val="{{$usuario->apellido}}" campo="apellido" onclick="text(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link text" val="{{$usuario->apellido}}"
+                                            campo="apellido" onclick="text(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -105,9 +118,10 @@
                                         <label class="font-weight-bold" for="">Correo Electronico</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->correo}}
+                                        <span>{{$usuario->correo}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link text" val="{{$usuario->correo}}" campo="correo" onclick="text(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link text" val="{{$usuario->correo}}" campo="correo"
+                                            onclick="text(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -120,10 +134,11 @@
                                         <!-- <input type="text" id="datepicker" class="pl-3 pr-3 form-control rounded-pill" value="{{$usuario->fecha_nacimiento}}"> -->
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{date("j M Y", strtotime($usuario->fecha_nacimiento))}}
+                                        <span>{{date("j M Y", strtotime($usuario->fecha_nacimiento))}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario )
-                                        <span class="pr-0 btn btn-link date" val="{{$usuario->fecha_nacimiento}}" campo="fecha_nacimiento" onclick="date(this)" style="font-size: small;">Editar <i
-                                                class="fas fa-edit"></i></span>
+                                        <span class="pr-0 btn btn-link date" val="{{$usuario->fecha_nacimiento}}"
+                                            campo="fecha_nacimiento" onclick="date(this)"
+                                            style="font-size: small;">Editar <i class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
                                 </div>
@@ -134,9 +149,10 @@
                                         <label class="font-weight-bold" for="">Nivel de estudios</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->nivel ? $usuario->nivel : 'NULL'}}
+                                        <span>{{$usuario->nivel ? ucwords($usuario->nivel) : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link select" val="{{$usuario->nivel}}" campo="nivel" onclick="select(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link select" val="{{$usuario->nivel}}" campo="nivel"
+                                            onclick="select(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -148,9 +164,10 @@
                                         <label class="font-weight-bold" for="">Pasivos</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->pasivos ? $usuario->pasivos : 'NULL'}}
+                                        <span>{{!is_null($usuario->pasivos)  ? $usuario->pasivos : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->pasivos}}" campo="pasivos" onclick="numb(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->pasivos}}" campo="pasivos"
+                                            onclick="numb(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -162,9 +179,10 @@
                                         <label class="font-weight-bold" for="">Activos</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        {{$usuario->activos ? $usuario->activos : 'NULL'}}
+                                        <span>{{!is_null($usuario->activos) ? $usuario->activos : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
-                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->activos}}" campo="activos" onclick="numb(this)" style="font-size: small;">Editar <i
+                                        <span class="pr-0 btn btn-link numb" val="{{$usuario->activos}}" campo="activos"
+                                            onclick="numb(this)" style="font-size: small;">Editar <i
                                                 class="fas fa-edit"></i></span>
                                         @endif
                                     </div>
@@ -249,6 +267,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-columns">
+
                                     <div class="accordion" id="accordionExample">
                                         @foreach($usuario->inversiones()->orderBy('updated_at')->groupBy('inversion.fk_solicitud')->get()->take(12)
                                         as $inversion)
@@ -352,40 +371,199 @@
             });
         });
         text = (element) => {
-            html = ''+
-            '<input type="text" id="edit'+$(element).attr('campo')+'" class="pl-3 pr-3 form-control rounded-pill" value="'+$(element).attr('val')+'">';
-            $(element).parent().html(html);
-            $('#edit'+$(element).attr('campo')).focus();
+            html = '' +
+                '<a class="w-100 d-flex border-0 rounded-0" id="del' + $(element).attr('campo') + '">' +
+                '<input class="pl-3 pr-3 mr-3 form-control rounded-pill" id="' + $(element).attr('campo') + '" value="' + $(element).attr('val') + '">' +
+                '<button class="btn btn-primary rounded-circle" onclick="submit_(`' + $(element).attr('campo') + '`)">' +
+                '<i class="fas fa-reply"></i>' +
+                '</button>' +
+                '</a>';
+            $(element).siblings().css({ 'display': 'none' });
+            $(element).css({ 'display': 'none' });
+            $(element).parent().prepend(html);
+            $('#' + $(element).attr('campo')).focus();
         }
         numb = (element) => {
-            html = ''+
-            '<input type="number" id="edit'+$(element).attr('campo')+'" class="pl-3 pr-3 form-control rounded-pill" value="'+$(element).attr('val')+'">';
-            $(element).parent().html(html);
-            $('#edit'+$(element).attr('campo')).focus();
+            html = '' +
+                '<a class="w-100 d-flex border-0 rounded-0" id="del' + $(element).attr('campo') + '">' +
+                '<input type="number" class="pl-3 pr-3 mr-3 form-control rounded-pill" id="' + $(element).attr('campo') + '" value="' + $(element).attr('val') + '">' +
+                '<button class="btn btn-primary rounded-circle" onclick="submit_(`' + $(element).attr('campo') + '`)">' +
+                '<i class="fas fa-reply"></i>' +
+                '</button>' +
+                '</a>';
+            $(element).siblings().css({ 'display': 'none' });
+            $(element).css({ 'display': 'none' });
+            $(element).parent().prepend(html);
+            $('#' + $(element).attr('campo')).focus();
         }
         date = (element) => {
-            html = ''+
-            '<input type="text" id="edit'+$(element).attr('campo')+'" style="border-radius: 50rem 0rem 0rem 50rem !important;" class="pl-3 pr-3 form-control" value="'+$(element).attr('val')+'">';
-            $(element).parent().html(html);
-            $('#edit'+$(element).attr('campo')).datepicker({
-                uiLibrary: 'bootstrap4'
+            html = '' +
+                '<a class="w-100 d-flex border-0 rounded-0" id="del' + $(element).attr('campo') + '">' +
+                '<input type="text" id="' + $(element).attr('campo') + '" style="border-radius: 50rem 0rem 0rem 50rem !important;" class="pl-3 pr-3 form-control" value="' + $(element).attr('val') + '" onchange="submit_(`' + $(element).attr('campo') + '`)">' +
+                '</a>';
+            $(element).siblings().css({ 'display': 'none' });
+            $(element).css({ 'display': 'none' });
+            $(element).parent().prepend(html);
+            $('#' + $(element).attr('campo')).datepicker({
+                uiLibrary: 'bootstrap4',
+                format: 'yyyy/mm/dd',
             });
-            // $('#edit'+$(element).attr('campo')).focus();
         }
         select = (element) => {
-            html = ''+
-            '<select name="type" id="edit'+$(element).attr('campo')+'" class="selectpicker form-control">'+
-                '<option value="ninguno">Ninguno</option>'+
-                '<option value="bachiller">Bachiller</option>'+
-                '<option value="profesional">Profesional</option>'+
-                '<option value="maestria">Maestria</option>'+
-                '<option value="doctorado">Doctorado</option>'+
-            '</select>';
+            html = '' +
+                '<a class="w-100 d-flex border-0 rounded-0" id="del' + $(element).attr('campo') + '">' +
+                '<select name="type" id="' + $(element).attr('campo') + '" class="pl-3 pr-3 form-control rounded-pill" onchange="submit_(`' + $(element).attr('campo') + '`)">';
+            switch ($(element).attr('val')) {
+                case "bachiller":
+                    html += '' +
+                        '<option value="ninguno">Ninguno</option>' +
+                        '<option selected value="bachiller">Bachiller</option>' +
+                        '<option value="profesional">Profesional</option>' +
+                        '<option value="maestria">Maestria</option>' +
+                        '<option value="doctorado">Doctorado</option>' +
+                        '</select>';
+                    break;
+                case "profesional":
+                    html += '' +
+                        '<option value="ninguno">Ninguno</option>' +
+                        '<option value="bachiller">Bachiller</option>' +
+                        '<option selected value="profesional">Profesional</option>' +
+                        '<option value="maestria">Maestria</option>' +
+                        '<option value="doctorado">Doctorado</option>' +
+                        '</select>';
+                    break;
+                case "maestria":
+                    html += '' +
+                        '<option value="ninguno">Ninguno</option>' +
+                        '<option value="bachiller">Bachiller</option>' +
+                        '<option value="profesional">Profesional</option>' +
+                        '<option selected value="maestria">Maestria</option>' +
+                        '<option value="doctorado">Doctorado</option>' +
+                        '</select>';
+                    break;
+                case "doctorado":
+                    html += '' +
+                        '<option value="ninguno">Ninguno</option>' +
+                        '<option value="bachiller">Bachiller</option>' +
+                        '<option value="profesional">Profesional</option>' +
+                        '<option value="maestria">Maestria</option>' +
+                        '<option selected value="doctorado">Doctorado</option>' +
+                        '</select>';
+                    break;
+                default:
+                    html += '' +
+                        '<option selected value="ninguno">Ninguno</option>' +
+                        '<option value="bachiller">Bachiller</option>' +
+                        '<option value="profesional">Profesional</option>' +
+                        '<option value="maestria">Maestria</option>' +
+                        '<option value="doctorado">Doctorado</option>' +
+                        '</select>';
+                    break;
+            }
+            html += '' +
+                '</a>';
             console.log(html);
             $(element).parent().html(html);
         }
-        
-        
+
+        submit_ = (element) => {
+            let data;
+            let campo = $('#del' + element);
+            let value = $('#' + element).val();
+            console.log(campo.attr('class'));
+            switch (element) {
+                case 'cedula':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        cedula: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'nombre':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        nombre: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'apellido':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        apellido: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'correo':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        correo: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'fecha_nacimiento':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        fecha_nacimiento: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'nivel':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        nivel: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'pasivos':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        pasivos: $('#' + element).val(),
+
+                    }
+                    break;
+                case 'activos':
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                        activos: $('#' + element).val(),
+
+                    }
+                    break;
+                default:
+                    data = {
+                        _token: $('#csrf_token').attr('content'),
+                        _method: 'PUT',
+                    }
+                    break;
+            }
+            $.ajax({
+                type: "POST",
+                url: "{{route('usuarios.update', Auth::user()->pk_usuario)}}",
+                data,
+                success: function (result) {
+                    if (element == 'fecha_nacimiento' || element == 'nivel'){
+                        location.reload();
+                    } else {
+                        campo.next().html(value);
+                        campo.next().next().attr('val', value);
+                        campo.siblings().css({ 'display': '' });
+                        campo.remove();
+                    }
+                },
+                error: function (result) {
+                    alert("Data not found");
+                }
+            });
+        }
+
+
     }); 
 </script>
 @endsection

@@ -172,7 +172,7 @@ let loadNotifications = () => {
 $(document).ready(function(){
     $.ajaxSetup({'cache':false});
     loadNotifications();
-    setInterval(loadNotifications, 15000);
+    setInterval(loadNotifications, 1000);
 });
 
 let notification = (pk, url) => {
