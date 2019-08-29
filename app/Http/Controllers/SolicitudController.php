@@ -26,7 +26,10 @@ class SolicitudController extends Controller
     }
 
     public function create()
-    {
+    {   
+        if(session('datos')['cedula'] == null || session('datos')['nivel'] == null || session('datos')['pasivos'] == null || session('datos')['activos'] == null){
+            return redirect()->action('UsuarioController@completarInformacion');
+        }
         return view('solicitudes.crearSolicitud');
     }
 

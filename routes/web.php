@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 
 Route::get('/login', 'LoginController')->name('login');
+Route::get('/completar', 'UsuarioController@completarInformacion');
+Route::patch('/completar', 'UsuarioController@guardarInformacion')->name('guardarInformacion');
 Route::post('/login', 'LoginController@authenticate')->name('authenticate');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::get('nosotros/', function () {
