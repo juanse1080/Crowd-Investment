@@ -52,6 +52,23 @@ class UsuarioController extends Controller
         }
     }
 
+    public function completarInformacion()
+    {
+        return view('usuarios.completarUsuario');
+    }
+
+    public function guardarInformacion(Request $request)
+    {
+        $usuario = Usuario::findOrFail($request->pk_usuario)->fill($request->all());
+        if ($usuario->save()) {
+            session(['datos'=> $usuario->session()]);
+            $mensaje = 'La información ha sido correctamente guardada';
+            return redirect(route('solicitudes.create'))->with('true', $mensaje);
+        } else {
+            return back()->withInput()->with('false', 'Algo no salio bien, intente nuevamente');
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -63,6 +80,7 @@ class UsuarioController extends Controller
         // $inversiones = Auth::user()->inversiones()->orderBy('updated_at')->get()->take(6);
         // $solicitudes = Auth::user()->solicitudes()->orderBy('updated_at')->get()->take(12);
         $usuario = Usuario::find($id);
+        dd($usuario);
         // dd($solicitudes);
         return view('inicio.perfil', ['usuario' => $usuario]);
     }
