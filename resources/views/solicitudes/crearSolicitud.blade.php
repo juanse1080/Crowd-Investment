@@ -68,11 +68,6 @@
 								<label for="tasa">Tasa de interes:</label>
 								<input type="number" step="any"  id="tasa" name="interes" class="form-control mb-2" value="@eachError('interes', $errors)@endeachError">
 							</div>
-							{{-- fecha recaudo --}}
-							<div class="col-md-6">
-								<label for="tasa">Fecha limite para recaudación:</label>
-								<input type="date" min="2018-11-17" name="tiempo_recaudacion" placeholder="dd/mm/yyyy" class="form-control mb-2" value="@eachError('tiempo_recaudacion', $errors)@endeachError">
-							</div>
 						</div>
 						<div id="imagenes">
 							<div class="row">
