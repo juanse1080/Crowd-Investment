@@ -80,7 +80,6 @@ class UsuarioController extends Controller
         // $inversiones = Auth::user()->inversiones()->orderBy('updated_at')->get()->take(6);
         // $solicitudes = Auth::user()->solicitudes()->orderBy('updated_at')->get()->take(12);
         $usuario = Usuario::find($id);
-        dd($usuario);
         // dd($solicitudes);
         return view('inicio.perfil', ['usuario' => $usuario]);
     }

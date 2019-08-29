@@ -203,7 +203,7 @@
                         Notificaciones
                         </h6>
                         <div id="comments"></div>
-                        <a class="dropdown-item text-center small text-gray-500" href="#">Ver mas</a>
+                        <a class="dropdown-item text-center small text-gray-500" href="/notificaciones">Ver mas</a>
                     </div>
                     </li>
 
