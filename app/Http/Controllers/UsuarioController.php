@@ -60,10 +60,11 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        $inversiones = Auth::user()->inversiones()->orderBy('updated_at')->get()->take(6);
-        $solicitudes = Auth::user()->solicitudes()->orderBy('updated_at')->get()->take(12);
+        // $inversiones = Auth::user()->inversiones()->orderBy('updated_at')->get()->take(6);
+        // $solicitudes = Auth::user()->solicitudes()->orderBy('updated_at')->get()->take(12);
+        $usuario = Usuario::find($id);
         // dd($solicitudes);
-        return view('inicio.perfil', ['solicitudes' => $solicitudes, 'inversiones' => $inversiones]);
+        return view('inicio.perfil', ['usuario' => $usuario]);
     }
 
     /**
