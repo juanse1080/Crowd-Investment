@@ -73,7 +73,7 @@
                                         <label class="font-weight-bold" for="">Cédula</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{$usuario->cedula}}</span>
+                                        <span>{{!is_null($usuario->cedula)  ? $usuario->cedula : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link numb" val="{{$usuario->cedula}}" campo="cedula"
                                             onclick="numb(this)" style="font-size: small;">Editar <i
@@ -405,7 +405,8 @@
             $(element).css({ 'display': 'none' });
             $(element).parent().prepend(html);
             $('#' + $(element).attr('campo')).datepicker({
-                uiLibrary: 'bootstrap4'
+                uiLibrary: 'bootstrap4',
+                format: 'yyyy/mm/dd',
             });
         }
         select = (element) => {
