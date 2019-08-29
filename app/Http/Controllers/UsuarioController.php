@@ -104,7 +104,13 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user()->fill($request->all());
+        $user -> save();
+        session(['datos'=> $user->session()]);
+        return response()->json([
+            'mensaje' => $user,
+        ]);
+        
     }
 
     /**

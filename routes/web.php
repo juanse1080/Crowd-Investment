@@ -34,12 +34,6 @@ Route::resource('/notificaciones', 'NotificacionController');
 Route::post('/notificaciones/truncate', 'NotificacionController@truncate')->name('load');
 Route::post('/notificaciones/estado', 'NotificacionController@estado');
 
-Route::get('/usuarios/solicitante/edit', 'UsuarioController@editSolicitante');
-Route::post('/usuarios/solicitante/', 'UsuarioController@updateSolicitante');
-Route::get('/perfil', function () {
-    return view('inicio.perfil');
-});
-
 //   RUTAS SOLICITUDES
 Route::resource('/solicitudes','SolicitudController');
 Route::post('/solicitudes/estado/{pk_solicitud}','SolicitudController@updateEstado')->name('estado');
@@ -47,7 +41,5 @@ Route::get('/home','SolicitudController@dashboard');
 
 Route::resource('inversiones','InversionController');
 Route::post('/inversiones/pagination/{pk_solicitud}', 'InversionController@pagination')->name('pagination');
-
-Route::post('/aceptar/{pk}','SolicitudController@confirmacion');
 
 
