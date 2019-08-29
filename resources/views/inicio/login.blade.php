@@ -7,18 +7,7 @@
     <div class="col-lg-6" style="margin-top:calc( 50vh - 188px )">
       <div class="card shadow mb-4 animated bounceInUp">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Bienvenido</h6>
-          <div class="dropdown no-arrow">
-            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-              <div class="dropdown-header">Opciones:</div>
-              <a class="dropdown-item" href="#">¿Olvidaste tu contraseña?</a>
-              <a class="dropdown-item" href="{{route('usuarios.create')}}">¡Registrate!</a>
-            </div>
-          </div>
+          <h6 class="m-0 font-weight-bold text-primary">Bienvenido a CrowdFunding</h6>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -51,6 +40,7 @@
               <small id="password" class="form-text text-danger"></small>
             </div>
             <button type="submit" class="btn btn-primary float-right">Iniciar sesion</button>
+            <a href="{{route('usuarios.create')}}" class="btn btn-info float-right mr-2 text-white">Registrate</a>
             <div class="form-text text-danger float-left"></div>
           </form>
         </div>

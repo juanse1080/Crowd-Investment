@@ -14,7 +14,7 @@
 
 
 Route::get('/', function () {
-    return view('inicio.inicio');
+    return redirect('/login');
 });
 
 
@@ -23,12 +23,12 @@ Route::get('/completar', 'UsuarioController@completarInformacion');
 Route::patch('/completar', 'UsuarioController@guardarInformacion')->name('guardarInformacion');
 Route::post('/login', 'LoginController@authenticate')->name('authenticate');
 Route::get('/logout', 'LoginController@logout')->name('logout');
-Route::get('nosotros/', function () {
-    return view('inicio.nosotros');
-});
-Route::get('contacto/', function () {
-    return view('inicio.contacto');
-});
+// Route::get('nosotros/', function () {
+//     return view('inicio.nosotros');
+// });
+// Route::get('contacto/', function () {
+//     return view('inicio.contacto');
+// });
 
 /*   RUTAS USUARIOS */
 Route::resource('/usuarios','UsuarioController');
