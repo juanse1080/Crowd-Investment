@@ -9,7 +9,7 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="text-center">Sus Notificaciones</h2>
+            <h4 class="mb-4">Notificaciones</h4>
             @if (!empty($notificaciones[0]))
                 @foreach ($notificaciones as $i => $noti)
                     @if ($noti->estado==0) {{-- Ya vieron la notificacion --}}
@@ -52,7 +52,6 @@
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
                             <p>Lo sentimos, actualmente no tienes notificaciones nuevas</p>
-                            <footer class="blockquote-footer">CEIS_UIS</footer>
                         </blockquote>
                     </div>
                 </div>

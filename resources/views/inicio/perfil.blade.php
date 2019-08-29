@@ -44,19 +44,28 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                        aria-controls="contact" aria-selected="false">Información personal</a>
+                        aria-controls="contact" aria-selected="false">
+                        <span data-toggle="tooltip" data-placement="top" title="Información personal" class="d-none d-sm-block">Información personal</span>
+                        <span data-toggle="tooltip" data-placement="top" title="Información personal" class="d-block d-sm-none">IP</span>
+                    </a>
                 </li>
                 @if($usuario->solicitudes()->orderBy('updated_at')->get()->count() > 0)
                 <li class="nav-item">
                     <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                        aria-selected="true">Solicitudes</a>
+                        aria-selected="true">
+                        <span data-toggle="tooltip" data-placement="top" title="Solicitudes" class="d-none d-sm-block">Solicitudes</span>
+                        <span data-toggle="tooltip" data-placement="top" title="Solicitudes" class="d-block d-sm-none">S</span>
+                    </a>
                 </li>
                 @endif
                 @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                 @if($usuario->inversiones()->orderBy('updated_at')->get()->count() > 0)
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                        aria-controls="profile" aria-selected="false">Inversiones</a>
+                        aria-controls="profile" aria-selected="false">
+                        <span data-toggle="tooltip" data-placement="top" title="Inversiones" class="d-none d-sm-block">Inversiones</span>
+                        <span data-toggle="tooltip" data-placement="top" title="Inversiones" class="d-block d-sm-none">I</span>
+                    </a>
                 </li>
                 @endif
                 @endif
@@ -73,7 +82,7 @@
                                         <label class="font-weight-bold" for="">Cédula</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{!is_null($usuario->cedula)  ? $usuario->cedula : 'NULL'}}</span>
+                                        <span class="ml-3">{{!is_null($usuario->cedula)  ? $usuario->cedula : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link numb" val="{{$usuario->cedula}}" campo="cedula"
                                             onclick="numb(this)" style="font-size: small;">Editar <i
@@ -88,7 +97,7 @@
                                         <label class="font-weight-bold" for="">Nombre</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{$usuario->nombre}}</span>
+                                        <span class="ml-3">{{$usuario->nombre}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link text" val="{{$usuario->nombre}}" campo="nombre"
                                             onclick="text(this)" style="font-size: small;">Editar <i
@@ -103,7 +112,7 @@
                                         <label class="font-weight-bold" for="">Apellido</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{$usuario->apellido}}</span>
+                                        <span class="ml-3">{{$usuario->apellido}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link text" val="{{$usuario->apellido}}"
                                             campo="apellido" onclick="text(this)" style="font-size: small;">Editar <i
@@ -118,7 +127,7 @@
                                         <label class="font-weight-bold" for="">Correo Electronico</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{$usuario->correo}}</span>
+                                        <span class="ml-3">{{$usuario->correo}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link text" val="{{$usuario->correo}}" campo="correo"
                                             onclick="text(this)" style="font-size: small;">Editar <i
@@ -134,7 +143,7 @@
                                         <!-- <input type="text" id="datepicker" class="pl-3 pr-3 form-control rounded-pill" value="{{$usuario->fecha_nacimiento}}"> -->
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{date("j M Y", strtotime($usuario->fecha_nacimiento))}}</span>
+                                        <span class="ml-3">{{date("j M Y", strtotime($usuario->fecha_nacimiento))}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario )
                                         <span class="pr-0 btn btn-link date" val="{{$usuario->fecha_nacimiento}}"
                                             campo="fecha_nacimiento" onclick="date(this)"
@@ -149,7 +158,7 @@
                                         <label class="font-weight-bold" for="">Nivel de estudios</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{$usuario->nivel ? ucwords($usuario->nivel) : 'NULL'}}</span>
+                                        <span class="ml-3">{{$usuario->nivel ? ucwords($usuario->nivel) : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link select" val="{{$usuario->nivel}}" campo="nivel"
                                             onclick="select(this)" style="font-size: small;">Editar <i
@@ -164,7 +173,7 @@
                                         <label class="font-weight-bold" for="">Pasivos</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{!is_null($usuario->pasivos)  ? $usuario->pasivos : 'NULL'}}</span>
+                                        <span class="ml-3">{{!is_null($usuario->pasivos)  ? $usuario->pasivos : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link numb" val="{{$usuario->pasivos}}" campo="pasivos"
                                             onclick="numb(this)" style="font-size: small;">Editar <i
@@ -179,7 +188,7 @@
                                         <label class="font-weight-bold" for="">Activos</label>
                                     </div>
                                     <div class="col-md-8 row justify-content-between pr-0">
-                                        <span>{{!is_null($usuario->activos) ? $usuario->activos : 'NULL'}}</span>
+                                        <span class="ml-3">{{!is_null($usuario->activos) ? $usuario->activos : 'NULL'}}</span>
                                         @if(Auth::user()->pk_usuario == $usuario->pk_usuario)
                                         <span class="pr-0 btn btn-link numb" val="{{$usuario->activos}}" campo="activos"
                                             onclick="numb(this)" style="font-size: small;">Editar <i
@@ -399,15 +408,11 @@
         date = (element) => {
             html = '' +
                 '<a class="w-100 d-flex border-0 rounded-0" id="del' + $(element).attr('campo') + '">' +
-                '<input type="text" id="' + $(element).attr('campo') + '" style="border-radius: 50rem 0rem 0rem 50rem !important;" class="pl-3 pr-3 form-control" value="' + $(element).attr('val') + '" onchange="submit_(`' + $(element).attr('campo') + '`)">' +
+                '<input type="date" id="' + $(element).attr('campo') + '" class="pl-3 pr-3 form-control rounded-pill" value="' + $(element).attr('val') + '" onchange="submit_(`' + $(element).attr('campo') + '`)">' +
                 '</a>';
             $(element).siblings().css({ 'display': 'none' });
             $(element).css({ 'display': 'none' });
             $(element).parent().prepend(html);
-            $('#' + $(element).attr('campo')).datepicker({
-                uiLibrary: 'bootstrap4',
-                format: 'yyyy/mm/dd',
-            });
         }
         select = (element) => {
             html = '' +

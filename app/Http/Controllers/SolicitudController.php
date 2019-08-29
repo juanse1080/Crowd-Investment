@@ -39,13 +39,15 @@ class SolicitudController extends Controller
         $solicitud = (new Solicitud)->fill($request->all());
         $solicitud->fk_usuario = session('datos')["pk_usuario"];
         $solicitud->save();
-        foreach ($request->fotos as $foto) {
-            $multimedia = Multimedia::create([
-                'fk_solicitud' => $solicitud->pk_solicitud,
-                'url' => '',
-            ]);
-            $multimedia->url = SupraController::subirArchivo($foto, 'solicitud' . $multimedia->pk_multimedia, 'foto');
-            $multimedia->save();
+        if(count($request->fotos) > 0){
+            foreach ($request->fotos as $foto) {
+                $multimedia = Multimedia::create([
+                    'fk_solicitud' => $solicitud->pk_solicitud,
+                    'url' => '',
+                ]);
+                $multimedia->url = SupraController::subirArchivo($foto, 'solicitud' . $multimedia->pk_multimedia, 'foto');
+                $multimedia->save();
+            }
         }
         return redirect("/solicitudes");
     }

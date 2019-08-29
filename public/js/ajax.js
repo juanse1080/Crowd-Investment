@@ -142,7 +142,7 @@ let loadNotifications = () => {
         data: { _token: $('#csrf_token').attr('content')},
         success: function (data) {
             console.log(data);
-            if(data.count > 0){
+            if(data.show){
                 html = '';
                 $.each( data.notifications, function(key, value) {
                     temp = value.created_at.split(' ')[0].split('-');
@@ -160,7 +160,8 @@ let loadNotifications = () => {
                     '</a>';
                 });
                 panel.html(html);
-                $('#items').html(data.count > 5 ? '5+' : data.count)
+                if(data.count > 0)
+                    $('#items').html(data.count > 5 ? '5+' : data.count)
             }
         },
         error: function (result) {

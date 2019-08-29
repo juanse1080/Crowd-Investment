@@ -97,7 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-success float-right">Registrar</button>
+                                    <button type="submit" class="btn btn-success float-right">Registrarse</button>
                                     <div class="form-text text-danger float-left"></div>
                                 </form>
                             </div>

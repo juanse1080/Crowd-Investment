@@ -28,6 +28,7 @@ class NotificacionController extends Controller
         if ($request->ajax()) {
             $notificaciones = Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->orderBy('estado', 'desc')->orderBy('created_at', 'desc')->get()->take(5);
             return response()->json([
+                'show' => count(Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])) > 0 ? true : false,
                 'count' => count(Notificacion::where('notificacion.fk_usuario', session('datos')['pk_usuario'])->where('estado', true)->get()),
                 'notifications' => $notificaciones
             ]);

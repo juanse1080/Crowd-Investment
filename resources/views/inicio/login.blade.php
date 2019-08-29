@@ -39,8 +39,10 @@
               </div>
               <small id="password" class="form-text text-danger"></small>
             </div>
-            <button type="submit" class="btn btn-primary float-right">Iniciar sesion</button>
-            <a href="{{route('usuarios.create')}}" class="btn btn-info float-right mr-2 text-white">Registrate</a>
+            <div class="row justify-content-between ml-n1 mr-n1">
+                <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                <a href="{{route('usuarios.create')}}" class="btn btn-link" style="font-size:small">¡Crea una cuenta!</a>
+            </div>
             <div class="form-text text-danger float-left"></div>
           </form>
         </div>

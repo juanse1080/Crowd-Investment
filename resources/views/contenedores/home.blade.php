@@ -31,7 +31,6 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" integrity="sha256-c3RzsUWg+y2XljunEQS0LqWdQ04X1D3j22fd/8JCAKw=" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
@@ -94,6 +93,13 @@
                 <span>Crear solicitud</span></a>
             </li>
 
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
             </ul>
             <!-- End of Sidebar -->
 
@@ -114,11 +120,6 @@
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-search fa-fw"></i>
-                    </a>
                     <!-- Dropdown - Messages -->
                     <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                         <form class="form-inline mr-auto w-100 navbar-search">
@@ -187,6 +188,8 @@
 
                 <!-- Begin Page Content -->
                 @yield('contenedor_home')
+
+                <div class="mt-3"></div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -199,24 +202,8 @@
         <!-- End of Page Wrapper -->
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-            </div>
-        </div>
     </body>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     <script>
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover({ html : true });

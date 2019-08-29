@@ -38,21 +38,21 @@ class InversionController extends Controller
                     'fk_usuario' => $solicitud -> fk_usuario,
                     'titulo' => '¡Paso a paso se puede!',
                     'descripcion' => 'Tu solicitud "'.$solicitud -> titulo.'" tuvo una inversión por un monto igual a $'.number_format($solicitud -> monto_juntado).', estas cada vez mas cerca',
-                    'url' => route('solicitudes.show', $solicitud -> pk_solicitud)
+                    'url' => '/solicitudes/' . $solicitud -> pk_solicitud
                 ]);
             } else {
                 Notificacion::create([
                     'fk_usuario' => $solicitud -> fk_usuario,
                     'titulo' => '!!!Felicidades¡¡¡',
                     'descripcion' => 'Tu solicitud "'.$solicitud -> titulo.'" completo el monto requerido. No olvides que el tiempo empieza a correr, tienes '.$solicitud -> tiempo_devolucion.' meses apartir de hoy' ,
-                    'url' => route('solicitudes.show', $solicitud -> pk_solicitud)
+                    'url' => '/solicitudes/' . $solicitud -> pk_solicitud
                 ]);
                 foreach ($solicitud->inversiones as $inversion) {
                     Notificacion::create([
                         'fk_usuario' => $inversion -> fk_usuario,
                         'titulo' => '!!Pronto tendras tu dinero¡¡',
                         'descripcion' => 'La solicitud "'.$solicitud -> titulo.'" completo el monto requerido. El tiempo empieza a correr, te regresaran tu dinero en '.$solicitud -> tiempo_devolucion.' meses apartir de hoy' ,
-                        'url' => route('solicitudes.show', $solicitud -> pk_solicitud)
+                        'url' => '/solicitudes/' . $solicitud -> pk_solicitud
                     ]);
                 }
             }
