@@ -51,7 +51,7 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-text mx-3">CrowdInvestment</div>
             </a>
 
@@ -170,14 +170,6 @@
                         <a class="dropdown-item" href="{{ route('usuarios.show', Auth::user()->pk_usuario) }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Perfil
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/logout') }}" >
